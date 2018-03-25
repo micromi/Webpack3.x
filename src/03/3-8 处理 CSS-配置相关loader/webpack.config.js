@@ -14,7 +14,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        // test: /\.css$/, // 【处理css文件】
+        // test: /\.less$/, // 【处理less文件】需要安装less less-loader
+        test: /\.scss$/, // 【处理sass文件】需要安装sass-loader node-loader
         use:  [
           // 1. style-loader: 页面插入style标签(默认在head中)(如果引用多个样式，页面会插入多个style标签)
           {
@@ -29,9 +31,17 @@ module.exports = {
             loader: 'css-loader',
             options: {
               // minimize: true, // css是否压缩
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]' // 定义编码出来的样式名称
+              modules: true, // 启用css-modules
+              localIdentName: '[path][name]__[local]--[hash:base64:5]' // 定义css-modules编码出来的样式名称
             }
+          },
+          // 【处理less文件】使用必须在style-loader,css-loader之后
+          // {
+          //   loader:'less-loader'
+          // },
+          // 【处理sass文件】使用必须在style-loader,css-loader之后
+          {
+            loader:'sass-loader'
           },
 
           // // 2. style-laoder/url: 页面插入link标签(不常用，如果引用多个样式，页面会插入多个link标签)
