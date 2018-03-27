@@ -36,8 +36,8 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 // minimize: true, // css是否压缩
-                modules: true, // 启用css-modules
-                localIdentName: '[path][name]__[local]--[hash:base64:5]' // 定义css-modules编码出来的样式名称
+                // modules: true, // 启用css-modules
+                // localIdentName: '[path][name]__[local]--[hash:base64:5]' // 定义css-modules编码出来的样式名称
               }
             },
             
@@ -84,7 +84,7 @@ module.exports = {
       filename: '[name].min.css', // 提取后的css名称,上线要把css-loader中minimize设为true
       allChunks: false, // 默认false，只会提取初始化的css(异步加载的css不提取), 给插件指定一个提取的范围， 为true会把import进来的css都会提取到一个文件中
     }),
-    // 去除打包后没用到的css，必须放到ExtractTextWebpackPlugin后面，跟css-modules不能一起使用（貌似没成功，待验证）
+    // 去除打包后没用到的css，必须放到ExtractTextWebpackPlugin后面，【跟css-loader中css-modules不能一起使用】
     new PurifyCSSPlugin({
       paths: glob.sync([
         path.resolve(__dirname, './*.html'),
